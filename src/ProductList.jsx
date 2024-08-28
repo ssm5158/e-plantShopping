@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import CartItem from "./CartItem";
 import { addItem } from "./CartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductList() {
-    const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
   const [showCart, setShowCart] = useState(false);
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
 
@@ -290,9 +291,19 @@ function ProductList() {
   const handleAddToCart = (plant) => {
     dispatch(addItem(plant));
     setAddedToCart((prev) => ({ ...prev, [plant.name]: true }));
-    
   };
-  
+
+  const numItems = () => {
+    let num = 0;
+    if (cart.length > 0) {
+      cart.map((item) => {
+        num += item.quantity;
+      });
+    }
+    console.log("No of items:", num);
+    return num;
+  };
+
   return (
     <div>
       <div className="navbar" style={styleObj}>
@@ -318,7 +329,7 @@ function ProductList() {
             </a>
           </div>
           <div>
-            {" "}
+            <h4>{numItems()}</h4>
             <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
               <h1 className="cart">
                 <svg
@@ -328,7 +339,12 @@ function ProductList() {
                   height="68"
                   width="68"
                 >
-                  <rect width="156" height="156" fill="none"></rect>
+                  <rect
+                    width="156"
+                    height="156"
+                    fill="none"
+                    fontSize={8}
+                  ></rect>
                   <circle cx="80" cy="216" r="12"></circle>
                   <circle cx="184" cy="216" r="12"></circle>
                   <path
@@ -341,6 +357,7 @@ function ProductList() {
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>
+                {/* {numItems()} */}
               </h1>
             </a>
           </div>
