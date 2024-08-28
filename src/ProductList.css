@@ -47,6 +47,27 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.plants-col {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    /* overflow-x: scroll; */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.queue-category {
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+    overflow-x: scroll;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
 .product-list {
     display: flex;
     flex-wrap: wrap;
